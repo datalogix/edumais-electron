@@ -22,7 +22,6 @@ function createWindow(): void {
   })
 
   mainWindow.on('ready-to-show', () => {
-    autoUpdater.checkForUpdates()
     mainWindow.maximize()
     mainWindow.show()
   })
@@ -75,6 +74,16 @@ app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
     app.quit()
   }
+})
+
+console.log(1)
+
+autoUpdater.checkForUpdates().then(() => {
+  console.log(2)
+})
+
+autoUpdater.checkForUpdatesAndNotify().then(() => {
+  console.log(3)
 })
 
 // In this file you can include the rest of your app"s specific main process
