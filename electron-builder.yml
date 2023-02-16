@@ -36,3 +36,5 @@ linux:
   category: Education
 appImage:
   artifactName: ${productName}-${version}.${ext}
+publish:
+  provider: github

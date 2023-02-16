@@ -2,7 +2,7 @@
   "name": "edumais-electron",
   "description": "Edumais é um inovador Ambiente Virtual de Aprendizagem voltado para o meio escolar e empresarial.",
   "homepage": "https://www.edumais.com.br",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "main": "./out/main/index.js",
   "author": {
     "name": "Edumais",
@@ -21,7 +21,7 @@
     "build:win": "npm run build && electron-builder --win --config",
     "build:mac": "npm run build && electron-builder --mac --config",
     "build:linux": "npm run build && electron-builder --linux --config",
-    "release": "electron-builder -mwl --config --publish onTag"
+    "release": "npm run build && electron-builder -mwl --config --publish onTag"
   },
   "dependencies": {
     "@electron-toolkit/preload": "^1.0.3",
