@@ -1,4 +1,5 @@
 import { app, shell, BrowserWindow } from 'electron'
+import { autoUpdater } from 'electron-updater'
 import * as path from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 
@@ -21,6 +22,7 @@ function createWindow(): void {
   })
 
   mainWindow.on('ready-to-show', () => {
+    autoUpdater.checkForUpdates()
     mainWindow.maximize()
     mainWindow.show()
   })
