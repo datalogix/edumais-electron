@@ -20,7 +20,7 @@ const onLogin = async () => {
 <template>
   <div class="space-y-6">
     <h1 class="text-2xl font-semibold text-center">
-      Acesse sua conta 2
+      Acesse sua conta 3
     </h1>
     <form method="post" @submit.prevent="onLogin">
       <FormField
