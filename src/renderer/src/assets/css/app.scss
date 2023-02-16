@@ -1,0 +1,25 @@
+.v-enter-active,
+.v-leave-active {
+  transition: opacity 0.5s ease;
+}
+
+.v-enter-from,
+.v-leave-to {
+  opacity: 0 !important;
+}
+
+.p-divider-horizontal:before {
+  border-width: 1px !important;
+}
+.p-divider-vertical:before {
+  border-width: 1px !important;
+}
+
+.p-password-input {
+  width:  100% !important;
+}
+
+.p-disabled, .p-disabled * {
+  cursor: not-allowed !important;
+  pointer-events: auto !important;
+}
