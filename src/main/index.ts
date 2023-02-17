@@ -24,6 +24,7 @@ function createWindow(): void {
   mainWindow.on('ready-to-show', () => {
     mainWindow.maximize()
     mainWindow.show()
+    autoUpdater.checkForUpdatesAndNotify()
   })
 
   mainWindow.webContents.setWindowOpenHandler((details) => {
@@ -74,16 +75,6 @@ app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
     app.quit()
   }
-})
-
-console.log(1)
-
-autoUpdater.checkForUpdates().then(() => {
-  console.log(2)
-})
-
-autoUpdater.checkForUpdatesAndNotify().then(() => {
-  console.log(3)
 })
 
 // In this file you can include the rest of your app"s specific main process
