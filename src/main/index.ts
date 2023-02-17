@@ -1,5 +1,6 @@
 import { app, shell, BrowserWindow, dialog } from 'electron'
 import { autoUpdater } from 'electron-updater'
+import type { UpdateInfo } from 'electron-updater'
 import * as path from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 
@@ -81,23 +82,23 @@ app.on('window-all-closed', () => {
 // In this file you can include the rest of your app"s specific main process
 // code. You can also put them in separate files and require them here.
 
-autoUpdater.on("update-available", (_event: any, releaseNotes: string, releaseName: string) => {
+autoUpdater.on("update-available", (info: UpdateInfo): void => {
   dialog.showMessageBox({
-    type: 'info',
-    buttons: ['Ok'],
-    title: 'Update Available',
-    message: process.platform === 'win32' ? releaseNotes : releaseName,
-    detail: 'A new version download started. The app will be restarted to install the update.'
+  type: 'info',
+  buttons: ['Ok'],
+  title: 'Update Available',
+  message: String(process.platform === 'win32' ? info.releaseNotes : info.releaseName),
+  detail: 'A new version download started. The app will be restarted to install the update.'
  })
 })
 
-autoUpdater.on("update-downloaded", (_event: any, releaseNotes: string, releaseName: string) => {
+autoUpdater.on("update-downloaded", (info: UpdateInfo): void => {
   dialog.showMessageBox({
-      type: 'info',
-      buttons: ['Restart', 'Later'],
-      title: 'Application Update',
-      message: process.platform === 'win32' ? releaseNotes : releaseName,
-      detail: 'A new version has been downloaded. Restart the application to apply the updates.'
+    type: 'info',
+    buttons: ['Restart', 'Later'],
+    title: 'Application Update',
+    message: String(process.platform === 'win32' ? info.releaseNotes : info.releaseName),
+    detail: 'A new version has been downloaded. Restart the application to apply the updates.'
   }).then((returnValue) => {
     if (returnValue.response === 0) {
       autoUpdater.quitAndInstall()
