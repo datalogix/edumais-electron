@@ -2,7 +2,7 @@
   "name": "edumais-electron",
   "description": "Edumais é um inovador Ambiente Virtual de Aprendizagem voltado para o meio escolar e empresarial.",
   "homepage": "https://www.edumais.com.br",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "main": "./out/main/index.js",
   "author": {
     "name": "Edumais",
