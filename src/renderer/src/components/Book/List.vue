@@ -8,6 +8,7 @@ const emits = defineEmits(['select'])
   <div class="flex flex-wrap gap-6 justify-center">
     <BookComponent
       v-for="book in books"
+      class="cursor-pointer"
       :key="book"
       :book="book"
       @click="emits('select', book)"

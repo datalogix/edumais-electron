@@ -235,10 +235,10 @@ const init = (PAGES, BOOK_ID, BOOK_SINGLE, BOOK_WIDTH, BOOK_HEIGHT) => {
 
 const addContent = (index, content, pageElement) => {
 	const options = $('.book').turn('options')
-    const pageWidth = options.width / (options.display === 'single' ? 1 : 2)
+  const pageWidth = options.width / (options.display === 'single' ? 1 : 2)
 	const pageHeight = options.height
 
-    const $element = $('<div />', { 'class': 'content' })
+    const $element = $('<div />', { 'class': `content content-${content.type}` })
         .prop('data', content)
         .css({
             top: Math.round(content.y / pageHeight * 100)+'%',

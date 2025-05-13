@@ -6,12 +6,12 @@ export default {
 
 <script lang="ts" setup>
 export interface FormFieldProps {
-    errors?: object
-    spacing?: boolean
-    label?: string|boolean
-    helper?: string
-    name?: string
-    modelValue?: any
+  errors?: object
+  spacing?: boolean
+  label?: string|boolean
+  helper?: string
+  name?: string
+  modelValue?: any
 }
 
 const props = withDefaults(defineProps<FormFieldProps>(), {

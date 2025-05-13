@@ -1,80 +1,58 @@
+import { Nullable } from 'primevue/ts-helpers'
+
 export const useAuth = () => {
+  const tokenState = useLocalStorage('token', null)
+  const userState = useLocalStorage('user', null, {
+    serializer: {
+      read: (v: any) => v ? JSON.parse(v) : null,
+      write: (v: any) => JSON.stringify(v),
+    }
+  })
+
   return {
-    get user () {
-      try {
-        return JSON.parse(String(window.localStorage.getItem('user')))
-      } catch {
-        return null
-      }
+    get token () {
+      return unref(tokenState)
     },
 
-    get token () {
-      return window.localStorage.getItem('token')
+    get user () {
+      return unref(userState)
     },
 
     get isLoggedIn () {
-      return this.user !== null
+      return isDefined(this.user) && isDefined(this.token)
     },
 
-    login () {
-      const loading = ref(false)
-      const error = ref<{ errors?: Array<string> }>({})
-      const success = ref(false)
+    login(fields: Record<string, Nullable<string>> = { email: null, password: null }) {
+      const router = useRouter()
+      const form = useForm('/auth/login', fields)
 
-      const exec = async ({ email, password }) => {
-        loading.value = true
-        error.value = {}
-        success.value = false
+      form.onFetchResponse(() => {
+        const { user, token } = unref(form.data)
 
-        const response = await fetch('http://edumais.test/api/auth/login', {
-          method: 'post',
-          headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json',
-          },
-          body: JSON.stringify({
-            email,
-            password
-          })
-        })
+        userState.value = user
+        tokenState.value = token
+      })
 
-        loading.value = false
-
-        const data = await response.json()
-
-        if (!response.ok) {
-          error.value = data
-          return
-        }
-
-        window.localStorage.setItem('user', JSON.stringify(data.user))
-        window.localStorage.setItem('token', data.token)
-
-        success.value = true
-
-        return data
-      }
-
-      return {
-        loading,
-        error,
-        success,
-        exec
-      }
-    },
-
-    async logout() {
-      await fetch('http://edumais.test/api/auth/logout', {
-        method: 'post',
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json',
-          'Authorization': `Bearer ${window.localStorage.getItem('token')}`
+      form.onFetchFinally(async () => {
+        if (unref(form.response)?.ok) {
+          await router.push({ name: 'dashboard' })
         }
       })
 
-      window.localStorage.removeItem('user')
-      window.localStorage.removeItem('token')
+      return form
+    },
+
+    async logout() {
+      const router = useRouter()
+
+      await useApi('/auth/logout', {
+        method: 'POST'
+      })
+
+      userState.value = null
+      tokenState.value = null
+
+      await router.push({ name: 'login' })
     },
   }
 }

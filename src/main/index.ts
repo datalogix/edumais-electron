@@ -1,7 +1,7 @@
+import * as path from 'path'
 import { app, shell, BrowserWindow, dialog } from 'electron'
 import { autoUpdater } from 'electron-updater'
 import type { UpdateInfo } from 'electron-updater'
-import * as path from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 
 function createWindow(): void {
@@ -18,7 +18,8 @@ function createWindow(): void {
       : {}),
     webPreferences: {
       preload: path.join(__dirname, '../preload/index.js'),
-      sandbox: false
+      sandbox: false,
+      devTools: !app.isPackaged
     }
   })
 
@@ -61,7 +62,9 @@ app.whenReady().then(() => {
 
   createWindow()
 
-  autoUpdater.checkForUpdatesAndNotify()
+  if (app.isPackaged) {
+    autoUpdater.checkForUpdatesAndNotify()
+  }
 
   app.on('activate', function () {
     // On macOS it's common to re-create a window in the app when the

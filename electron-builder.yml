@@ -1,5 +1,5 @@
 appId: br.com.edumais
-productName: Edumais
+productName: MSO
 directories:
   buildResources: build
 files:
@@ -12,7 +12,9 @@ asarUnpack:
   - '**/*.{node,dll}'
 afterSign: build/notarize.js
 win:
-  executableName: Edumais
+  executableName: MSO
+  certificateFile: ./ServerCertificate_Password.pfx
+  certificatePassword: Data.logix@10
 nsis:
   artifactName: ${productName}-${version}-setup.${ext}
   shortcutName: ${productName}

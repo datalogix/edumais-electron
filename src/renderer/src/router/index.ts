@@ -8,10 +8,10 @@ const router = createRouter({
 })
 
 router.beforeEach((to) => {
-  const auth = useAuth()
+  const { isLoggedIn } = useAuth()
   const requiresAuth = to.meta.requiresAuth ?? true
 
-  if (requiresAuth && !auth.isLoggedIn) {
+  if (requiresAuth && !isLoggedIn) {
     return {
       name: 'login'
     }

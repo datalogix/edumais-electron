@@ -1,7 +1,7 @@
 <template>
   <RouterView v-slot="{ Component }">
     <Suspense>
-      <Component :is="Component"></Component>
+      <Component :is="Component" />
 
       <template #fallback>
         <div class="min-h-screen h-full grid content-center">

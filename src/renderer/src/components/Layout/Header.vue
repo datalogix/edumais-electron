@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-const auth = useAuth()
+const { user } = useAuth()
 const userMenu = ref()
 </script>
 
@@ -17,22 +17,21 @@ const userMenu = ref()
     </div>
     <div>
       <PButton
+        v-if="user"
         type="button"
         class="p-button-text p-button-secondary !py-2 !px-3"
         @click="(e) => userMenu.toggle(e)"
       >
         <PAvatar
-          :icon="auth.user.avatar_url ? undefined : 'pi pi-user'"
-          :image="auth.user.avatar_url ? auth.user.avatar_url : undefined"
+          :icon="user.avatar_url ? undefined : 'pi pi-user'"
+          :image="user.avatar_url ? user.avatar_url : undefined"
           shape="circle"
         />
       </PButton>
       <PMenu
         ref="userMenu"
         :popup="true"
-        :model="[
-          { label: 'Sair', icon: 'pi pi-power-off', to: { name: 'logout' } }
-        ]"
+        :model="[{ label: 'Sair', icon: 'pi pi-power-off', to: { name: 'logout' } }]"
       />
     </div>
   </div>

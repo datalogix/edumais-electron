@@ -1,0 +1,39 @@
+Olá ,
+
+Obrigado por nos retornar.
+
+Você precisa converter o certificado no formato pfx para o processo de assinatura. Gostaria de informar que um arquivo
+PFX pode ser criado combinando certificado Codesigning (servidor), CABundle e chave privada.
+
+1. Certificado do Servidor (Certificado de Codesigning):
+Você deverá copiar o conteúdo dele no bloco de notas e salvá-lo com extensão .crt.
+Você pode baixá-lo no caminho abaixo:
+Faça login na sua conta > Meus pedidos > Pedido aberto nº 2827806 >
+Clique no botão "Gerenciar SSL" > Entre no assistente de configuração > Obter certificado
+
+2. CABundle: Você pode seguir as etapas abaixo para criar um CABundle.
+Você obterá todos os arquivos abaixo do caminho acima:
+
+a. Certificado Intermediário2
+b. Certificado Intermediário1
+c. Certificado Raiz
+
+Agora: Você precisa copiar todos os 3 arquivos (raiz e intermediário) em um bloco de notas,
+certifique-se de colar esses arquivos na ordem fornecida
+Certificado intermediário2>> Certificado intermediário1>> Certificado raiz um abaixo do outro e salve-o como CAbundle.crt.
+
+3. Chave privada:
+A chave privada é gerada junto com o CSR e deve ter sido salva por você.
+Você terá que salvá-lo com a extensão .key.
+
+Você pode converter o formato de arquivo pfx aqui:
+https://www.sslshopper.com/ssl-converter.html
+
+Arquivo de certificado para converter - certificado de servidor
+Arquivo de chave privada - salvo do seu lado
+Arquivo de certificado de cadeia (opcional) - CAbundle
+
+Tipo de certificado atual - PEM padrão
+Digite para converter para - PFX/PKCS#12
+
+Depois de obter o arquivo pfx, você pode prosseguir com o processo de assinatura.
